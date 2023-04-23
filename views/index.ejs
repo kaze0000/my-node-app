@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <form action="/" method="post">
+      <label>タスクの追加</label>
+      <input required type="text" name="add" placeholder="何をする?" />
+      <input type="submit" value="追加" />
+    </form>
+    <ul>
+      <% for(let todo of todos){ %>
+      <li>
+        <span><%= todo.content %></span>
+        <form
+          class="update-form"
+          data-id="<%= todo.id %>"
+          action="/update"
+          method="post"
+        >
+          <input type="hidden" name="id" value="<%= todo.id %>" />
+          <input
+            type="text"
+            name="updatedContent"
+            value="<%= todo.content %>"
+          />
+          <input type="submit" value="更新" />
+        </form>
+        <form class="delete-form" action="/delete" method="post">
+          <input type="hidden" name="id" value="<%= todo.id %>" />
+          <input type="submit" value="削除" />
+        </form>
+      </li>
+      <% } %>
+    </ul>
+  </body>
+</html>
